@@ -57,6 +57,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // HP Brand Colors
+        "hp-blue": "hsl(var(--hp-blue))",
+        "hp-blue-light": "hsl(var(--hp-blue-light))",
+        "hp-blue-dark": "hsl(var(--hp-blue-dark))",
+        "hp-gradient-start": "hsl(var(--hp-gradient-start))",
+        "hp-gradient-end": "hsl(var(--hp-gradient-end))",
       },
       borderRadius: {
         lg: "var(--radius)",
