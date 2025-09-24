@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { X, Send, Smile, Paperclip } from "lucide-react";
+import { X, Send, Smile } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -30,7 +30,6 @@ const ChatInterface = ({ isOpen, onClose }: ChatInterfaceProps) => {
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -101,36 +100,6 @@ const ChatInterface = ({ isOpen, onClose }: ChatInterfaceProps) => {
 
       setMessages(prev => [...prev, aiResponse]);
     }, 800);
-  };
-
-  const handleFileUpload = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        text: `📎 Uploaded: ${file.name}`,
-        isUser: true,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      setMessages(prev => [...prev, userMessage]);
-
-      // Simulate AI response to file upload
-      setTimeout(() => {
-        const aiResponse: Message = {
-          id: (Date.now() + 1).toString(),
-          text: "I've received your file! Let me analyze it for you.",
-          isUser: false,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-
-        setMessages(prev => [...prev, aiResponse]);
-      }, 1000);
-    }
   };
 
   if (!isOpen) return null;
@@ -223,14 +192,6 @@ const ChatInterface = ({ isOpen, onClose }: ChatInterfaceProps) => {
               <Smile className="h-4 w-4" />
             </Button>
             <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleFileUpload}
-              className="rounded-full w-8 h-8 p-0 text-muted-foreground hover:text-foreground"
-            >
-              <Paperclip className="h-4 w-4" />
-            </Button>
-            <Button
               onClick={handleSendMessage}
               disabled={!inputValue.trim()}
               size="sm"
@@ -239,15 +200,6 @@ const ChatInterface = ({ isOpen, onClose }: ChatInterfaceProps) => {
               <Send className="h-4 w-4" />
             </Button>
           </div>
-          
-          {/* Hidden file input */}
-          <input
-            ref={fileInputRef}
-            type="file"
-            onChange={handleFileSelect}
-            className="hidden"
-            accept="image/*,application/pdf,.doc,.docx,.txt"
-          />
           
           {/* Disclaimer */}
           <p className="text-xs text-muted-foreground text-center mt-3 px-2">
