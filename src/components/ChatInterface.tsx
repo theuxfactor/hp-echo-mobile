@@ -21,7 +21,7 @@ const ChatInterface = ({ isOpen, onClose }: ChatInterfaceProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hi! I'm HP Assistant. How can I help you today?",
+      text: "Hi! I'm your HP Virtual Assistant. How can I help you today?",
       isUser: false,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       quickReplies: ["Product info", "Support", "Pricing"]
